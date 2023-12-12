@@ -7,6 +7,7 @@ interface ISchema {
   title: string;
   fields: IField[];
   project: Types.ObjectId | IProject;
+  _doc: any;
 }
 
 export default ISchema;
