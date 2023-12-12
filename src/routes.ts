@@ -1,13 +1,14 @@
 import express from "express";
 const router = express.Router();
 
-import userController from "./controllers/UserController";
-import projectController from "./controllers/ProjectController";
-import schemaController from "./controllers/SchemaController";
 import documentController from "./controllers/DocumentController";
+import projectController from "./controllers/ProjectController";
+import rootController from "./controllers/RootController";
+import schemaController from "./controllers/SchemaController";
+import userController from "./controllers/UserController";
 
-// Api
-// router.get("/")
+// Root
+router.get("/", rootController.getRootLinks);
 
 // Users
 router.get("/users", userController.getAllUsers);
