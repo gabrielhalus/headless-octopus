@@ -104,10 +104,7 @@ class UserController {
         return res
           .status(404)
           .json({ error: `User with ID ${userId} not found` });
-      res.json({
-        message: "Successfully deleted",
-        _links: [{ rel: "create", href: `/users`, method: "POST" }],
-      });
+      res.sendStatus(204);
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }

@@ -150,10 +150,7 @@ class DocumentController {
         return res
           .status(404)
           .json({ error: `Document with ID ${documentId} not found` });
-      res.json({
-        message: "Successfully deleted",
-        _links: [{ rel: "create", href: `/documents`, method: "POST" }],
-      });
+      res.sendStatus(204);
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }

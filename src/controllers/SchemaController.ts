@@ -137,10 +137,7 @@ class SchemaController {
         return res
           .status(404)
           .json({ error: `Schema with ID ${schemaId} not found` });
-      res.json({
-        message: "Successfully deleted",
-        _links: [{ rel: "create", href: `/schemas`, method: "POST" }],
-      });
+      res.sendStatus(204);
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }
