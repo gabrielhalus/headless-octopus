@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 
 import connectDB from "./config/db";
 import routes from "./routes";
@@ -11,6 +12,7 @@ const main = async () => {
   await connectDB();
 
   // Middleware
+  app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(logRequest);
@@ -20,7 +22,11 @@ const main = async () => {
 
   const PORT = process.env.PORT || 3000;
 
-  app.listen(PORT, () => console.log(`Server is now listening on port ${PORT} 🌐`));
+  app.listen(PORT, () =>
+    console.log(`Server is now listening on port ${PORT} 🌐`)
+  );
 };
 
-main().catch((error) => console.error("Error during application startup:" + error.message));
+main().catch((error) =>
+  console.error("Error during application startup:" + error.message)
+);
