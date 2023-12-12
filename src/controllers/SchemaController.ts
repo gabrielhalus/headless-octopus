@@ -9,11 +9,16 @@ class SchemaController {
       const schemasWithLinks = schemas.map((schema) => {
         return {
           ...schema._doc,
-          _links: [{ rel: "self", href: `/schemas/${schema._id}` }],
+          _links: [
+            { rel: "self", href: `/schemas/${schema._id}`, method: "GET" },
+          ],
         };
       });
       res.json({
-        _links: [{ rel: "create", href: `/schemas`, method: "POST" }],
+        _links: [
+          { rel: "self", href: `/schemas`, method: "GET" },
+          { rel: "create", href: `/schemas`, method: "POST" },
+        ],
         schemas: schemasWithLinks,
       });
     } catch (error: any) {
@@ -34,10 +39,14 @@ class SchemaController {
       const schemaWithLinks = {
         ...schema._doc,
         _links: [
-          { rel: "self", href: `/schemas/${schema._id}` },
+          { rel: "self", href: `/schemas/${schema._id}`, method: "GET" },
           { rel: "update", href: `/schemas/${schema._id}`, method: "PUT" },
           { rel: "delete", href: `/schemas/${schema._id}`, method: "DELETE" },
-          { rel: "documents", href: `/schemas/${schema._id}/documents` },
+          {
+            rel: "documents",
+            href: `/schemas/${schema._id}/documents`,
+            method: "GET",
+          },
         ],
       };
       res.json(schemaWithLinks);
@@ -55,10 +64,14 @@ class SchemaController {
         return {
           ...schema._doc,
           _links: [
-            { rel: "self", href: `/schemas/${schema._id}` },
+            { rel: "self", href: `/schemas/${schema._id}`, method: "GET" },
             { rel: "update", href: `/schemas/${schema._id}`, method: "PUT" },
             { rel: "delete", href: `/schemas/${schema._id}`, method: "DELETE" },
-            { rel: "documents", href: `/schemas/${schema._id}/documents` },
+            {
+              rel: "documents",
+              href: `/schemas/${schema._id}/documents`,
+              method: "GET",
+            },
           ],
         };
       });
@@ -76,7 +89,7 @@ class SchemaController {
       const newSchemaWithLinks = {
         ...newSchema._doc,
         _links: [
-          { rel: "self", href: `/schemas/${newSchema._id}` },
+          { rel: "self", href: `/schemas/${newSchema._id}`, method: "GET" },
           { rel: "update", href: `/schemas/${newSchema._id}`, method: "PUT" },
           {
             rel: "delete",
@@ -108,7 +121,7 @@ class SchemaController {
       const updatedSchemaWithLinks = {
         ...updatedSchema._doc,
         _links: [
-          { rel: "self", href: `/schemas/${updatedSchema._id}` },
+          { rel: "self", href: `/schemas/${updatedSchema._id}`, method: "GET" },
           {
             rel: "update",
             href: `/schemas/${updatedSchema._id}`,

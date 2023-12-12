@@ -9,11 +9,16 @@ class DocumentController {
       const documentsWithLinks = documents.map((document) => {
         return {
           ...document._doc,
-          _links: [{ rel: "self", href: `/documents/${document._id}` }],
+          _links: [
+            { rel: "self", href: `/documents/${document._id}`, method: "GET" },
+          ],
         };
       });
       res.json({
-        _links: [{ rel: "create", href: `/documents`, method: "POST" }],
+        _links: [
+          { rel: "self", href: `/documents`, method: "GET" },
+          { rel: "create", href: `/documents`, method: "POST" },
+        ],
         documents: documentsWithLinks,
       });
     } catch (error: any) {
@@ -33,7 +38,7 @@ class DocumentController {
       const documentWithLinks = {
         ...document._doc,
         _links: [
-          { rel: "self", href: `/documents/${document._id}` },
+          { rel: "self", href: `/documents/${document._id}`, method: "GET" },
           { rel: "update", href: `/documents/${document._id}`, method: "PUT" },
           {
             rel: "delete",
@@ -57,7 +62,7 @@ class DocumentController {
         return {
           ...document._doc,
           _links: [
-            { rel: "self", href: `/documents/${document._id}` },
+            { rel: "self", href: `/documents/${document._id}`, method: "GET" },
             {
               rel: "update",
               href: `/documents/${document._id}`,
@@ -85,7 +90,7 @@ class DocumentController {
       const newDocumentWithLinks = {
         ...newDocument._doc,
         _links: [
-          { rel: "self", href: `/documents/${newDocument._id}` },
+          { rel: "self", href: `/documents/${newDocument._id}`, method: "GET" },
           {
             rel: "update",
             href: `/documents/${newDocument._id}`,
@@ -121,7 +126,11 @@ class DocumentController {
       const updatedDocumentWithLinks = {
         ...updatedDocument._doc,
         _links: [
-          { rel: "self", href: `/documents/${updatedDocument._id}` },
+          {
+            rel: "self",
+            href: `/documents/${updatedDocument._id}`,
+            method: "GET",
+          },
           {
             rel: "update",
             href: `/documents/${updatedDocument._id}`,

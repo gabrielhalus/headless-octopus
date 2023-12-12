@@ -13,7 +13,10 @@ class ProjectController {
         };
       });
       res.json({
-        _links: [{ rel: "create", href: `/projects`, method: "POST" }],
+        _links: [
+          { rel: "create", href: `/projects`, method: "GET" },
+          { rel: "create", href: `/projects`, method: "POST" },
+        ],
         projects: projectsWithLinks,
       });
     } catch (error: any) {
@@ -34,10 +37,14 @@ class ProjectController {
       const projectWithLinks = {
         ...project._doc,
         _links: [
-          { rel: "self", href: `/projects/${project._id}` },
+          { rel: "self", href: `/projects/${project._id}`, method: "GET" },
           { rel: "update", href: `/projects/${project._id}`, method: "PUT" },
           { rel: "delete", href: `/projects/${project._id}`, method: "DELETE" },
-          { rel: "schemas", href: `/projects/${project._id}/schemas` },
+          {
+            rel: "schemas",
+            href: `/projects/${project._id}/schemas`,
+            method: "GET",
+          },
         ],
       };
       res.json(projectWithLinks);
@@ -55,14 +62,18 @@ class ProjectController {
         return {
           ...project._doc,
           _links: [
-            { rel: "self", href: `/projects/${project._id}` },
+            { rel: "self", href: `/projects/${project._id}`, method: "GET" },
             { rel: "update", href: `/projects/${project._id}`, method: "PUT" },
             {
               rel: "delete",
               href: `/projects/${project._id}`,
               method: "DELETE",
             },
-            { rel: "schemas", href: `/projects/${project._id}/schemas` },
+            {
+              rel: "schemas",
+              href: `/projects/${project._id}/schemas`,
+              method: "GET",
+            },
           ],
         };
       });
@@ -80,7 +91,7 @@ class ProjectController {
       const newProjectWithLinks = {
         ...newProject._doc,
         _links: [
-          { rel: "self", href: `/projects/${newProject._id}` },
+          { rel: "self", href: `/projects/${newProject._id}`, method: "GET" },
           { rel: "update", href: `/projects/${newProject._id}`, method: "PUT" },
           {
             rel: "delete",
@@ -112,7 +123,11 @@ class ProjectController {
       const updatedProjectWithLinks = {
         ...updatedProject._doc,
         _links: [
-          { rel: "self", href: `/projects/${updatedProject._id}` },
+          {
+            rel: "self",
+            href: `/projects/${updatedProject._id}`,
+            method: "GET",
+          },
           {
             rel: "update",
             href: `/projects/${updatedProject._id}`,

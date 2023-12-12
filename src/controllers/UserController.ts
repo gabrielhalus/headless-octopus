@@ -9,11 +9,14 @@ class UserController {
       const usersWithLinks = users.map((user) => {
         return {
           ...user._doc,
-          _links: [{ rel: "self", href: `/users/${user._id}` }],
+          _links: [{ rel: "self", href: `/users/${user._id}`, method: "GET" }],
         };
       });
       res.json({
-        _links: [{ rel: "create", href: `/users`, method: "POST" }],
+        _links: [
+          { rel: "create", href: `/users`, method: "GET" },
+          { rel: "create", href: `/users`, method: "POST" },
+        ],
         users: usersWithLinks,
       });
     } catch (error: any) {
@@ -34,10 +37,14 @@ class UserController {
       const userWithLinks = {
         ...user._doc,
         _links: [
-          { rel: "self", href: `/users/${user._id}` },
+          { rel: "self", href: `/users/${user._id}`, method: "GET" },
           { rel: "update", href: `/users/${user._id}`, method: "PUT" },
           { rel: "delete", href: `/users/${user._id}`, method: "DELETE" },
-          { rel: "projects", href: `/users/${user._id}/projects` },
+          {
+            rel: "projects",
+            href: `/users/${user._id}/projects`,
+            method: "GET",
+          },
         ],
       };
       res.json(userWithLinks);
@@ -54,7 +61,7 @@ class UserController {
       const newUserWithLinks = {
         ...newUser._doc,
         _links: [
-          { rel: "self", href: `/users/${newUser._id}` },
+          { rel: "self", href: `/users/${newUser._id}`, method: "GET" },
           { rel: "update", href: `/users/${newUser._id}`, method: "PUT" },
           { rel: "delete", href: `/users/${newUser._id}`, method: "DELETE" },
         ],
@@ -79,7 +86,7 @@ class UserController {
       const updatedUserWithLinks = {
         ...updatedUser._doc,
         _links: [
-          { rel: "self", href: `/users/${updatedUser._id}` },
+          { rel: "self", href: `/users/${updatedUser._id}`, method: "GET" },
           { rel: "update", href: `/users/${updatedUser._id}`, method: "PUT" },
           {
             rel: "delete",
