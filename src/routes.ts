@@ -6,6 +6,9 @@ import projectController from "./controllers/ProjectController";
 import schemaController from "./controllers/SchemaController";
 import documentController from "./controllers/DocumentController";
 
+// Api
+// router.get("/")
+
 // Users
 router.get("/users", userController.getAllUsers);
 router.get("/users/:id", userController.getUserById);

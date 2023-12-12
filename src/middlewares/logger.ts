@@ -3,7 +3,10 @@ import fs from "fs";
 import path from "path";
 
 // Create a write stream (in append mode) for the log file
-const accessLogStream = fs.createWriteStream(path.join(__dirname, "../access.log"), { flags: "a" });
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, "../access.log"),
+  { flags: "a" }
+);
 
 const logRequest = (req: Request, res: Response, next: NextFunction) => {
   // Custom middleware to log requests

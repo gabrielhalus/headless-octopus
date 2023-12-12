@@ -11,11 +11,19 @@ class DocumentController {
           ...document._doc,
           links: [
             { rel: "self", href: `/documents/${document._id}` },
-            { rel: "update", href: `/documents/${document._id}`, method: "PUT" },
-            { rel: "delete", href: `/documents/${document._id}`, method: "DELETE" },
-          ]
-        }
-      })
+            {
+              rel: "update",
+              href: `/documents/${document._id}`,
+              method: "PUT",
+            },
+            {
+              rel: "delete",
+              href: `/documents/${document._id}`,
+              method: "DELETE",
+            },
+          ],
+        };
+      });
       res.json(documentsWithLinks);
     } catch (error: any) {
       res.status(500).json({ error: error.message });
@@ -27,15 +35,22 @@ class DocumentController {
     try {
       const document = await documentService.getDocumentById(documentId);
       // Handle the case where document with the given ID was not found
-      if (!document) return res.status(404).json({ error: `Document with ID ${documentId} not found` });
+      if (!document)
+        return res
+          .status(404)
+          .json({ error: `Document with ID ${documentId} not found` });
       const documentWithLinks = {
         ...document._doc,
         links: [
           { rel: "self", href: `/documents/${document._id}` },
           { rel: "update", href: `/documents/${document._id}`, method: "PUT" },
-          { rel: "delete", href: `/documents/${document._id}`, method: "DELETE" },
-        ]
-      }
+          {
+            rel: "delete",
+            href: `/documents/${document._id}`,
+            method: "DELETE",
+          },
+        ],
+      };
       res.json(documentWithLinks);
     } catch (error: any) {
       res.status(500).json({ error: error.message });
@@ -52,11 +67,19 @@ class DocumentController {
           ...document._doc,
           links: [
             { rel: "self", href: `/documents/${document._id}` },
-            { rel: "update", href: `/documents/${document._id}`, method: "PUT" },
-            { rel: "delete", href: `/documents/${document._id}`, method: "DELETE" },
-          ]
-        }
-      })
+            {
+              rel: "update",
+              href: `/documents/${document._id}`,
+              method: "PUT",
+            },
+            {
+              rel: "delete",
+              href: `/documents/${document._id}`,
+              method: "DELETE",
+            },
+          ],
+        };
+      });
       res.json(documentsWithLinks);
     } catch (error: any) {
       res.status(500).json({ error: error.message });
@@ -72,10 +95,18 @@ class DocumentController {
         ...newDocument._doc,
         links: [
           { rel: "self", href: `/documents/${newDocument._id}` },
-          { rel: "update", href: `/documents/${newDocument._id}`, method: "PUT" },
-          { rel: "delete", href: `/documents/${newDocument._id}`, method: "DELETE" },
-        ]
-      }
+          {
+            rel: "update",
+            href: `/documents/${newDocument._id}`,
+            method: "PUT",
+          },
+          {
+            rel: "delete",
+            href: `/documents/${newDocument._id}`,
+            method: "DELETE",
+          },
+        ],
+      };
       res.status(201).json(newDocumentWithLinks);
     } catch (error: any) {
       res.status(500).json({ error: error.message });
@@ -87,17 +118,31 @@ class DocumentController {
     const documentData = req.body as IDocument;
 
     try {
-      const updatedDocument = await documentService.updateDocument(documentId, documentData);
+      const updatedDocument = await documentService.updateDocument(
+        documentId,
+        documentData
+      );
       // Handle the case where document with the given ID was not found
-      if (!updatedDocument) return res.status(404).json({ error: `Document with ID ${documentId} not found` });
+      if (!updatedDocument)
+        return res
+          .status(404)
+          .json({ error: `Document with ID ${documentId} not found` });
       const updatedDocumentWithLinks = {
         ...updatedDocument._doc,
         links: [
           { rel: "self", href: `/documents/${updatedDocument._id}` },
-          { rel: "update", href: `/documents/${updatedDocument._id}`, method: "PUT" },
-          { rel: "delete", href: `/documents/${updatedDocument._id}`, method: "DELETE" },
-        ]
-      }
+          {
+            rel: "update",
+            href: `/documents/${updatedDocument._id}`,
+            method: "PUT",
+          },
+          {
+            rel: "delete",
+            href: `/documents/${updatedDocument._id}`,
+            method: "DELETE",
+          },
+        ],
+      };
       res.json(updatedDocumentWithLinks);
     } catch (error: any) {
       res.status(500).json({ error: error.message });
@@ -110,10 +155,13 @@ class DocumentController {
     try {
       const deletedDocument = await documentService.deleteDocument(documentId);
       // Handle the case where document with the given ID was not found
-      if (!deletedDocument) return res.status(404).json({ error: `Document with ID ${documentId} not found` });
+      if (!deletedDocument)
+        return res
+          .status(404)
+          .json({ error: `Document with ID ${documentId} not found` });
       res.json({
         message: "Successfully deleted",
-        links: [{ rel: "create", href: `/documents`, method: "POST" }]
+        links: [{ rel: "create", href: `/documents`, method: "POST" }],
       });
     } catch (error: any) {
       res.status(500).json({ error: error.message });
