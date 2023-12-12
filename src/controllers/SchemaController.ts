@@ -9,15 +9,13 @@ class SchemaController {
       const schemasWithLinks = schemas.map((schema) => {
         return {
           ...schema._doc,
-          _links: [
-            { rel: "self", href: `/schemas/${schema._id}` },
-            { rel: "update", href: `/schemas/${schema._id}`, method: "PUT" },
-            { rel: "delete", href: `/schemas/${schema._id}`, method: "DELETE" },
-            { rel: "documents", href: `/schemas/${schema._id}/documents` },
-          ],
+          _links: [{ rel: "self", href: `/schemas/${schema._id}` }],
         };
       });
-      res.json(schemasWithLinks);
+      res.json({
+        _links: [{ rel: "create", href: `/schemas`, method: "POST" }],
+        schemas: schemasWithLinks,
+      });
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }

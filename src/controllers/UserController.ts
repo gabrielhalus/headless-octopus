@@ -9,15 +9,13 @@ class UserController {
       const usersWithLinks = users.map((user) => {
         return {
           ...user._doc,
-          _links: [
-            { rel: "self", href: `/users/${user._id}` },
-            { rel: "update", href: `/users/${user._id}`, method: "PUT" },
-            { rel: "delete", href: `/users/${user._id}`, method: "DELETE" },
-            { rel: "projects", href: `/users/${user._id}/projects` },
-          ],
+          _links: [{ rel: "self", href: `/users/${user._id}` }],
         };
       });
-      res.json(usersWithLinks);
+      res.json({
+        _links: [{ rel: "create", href: `/users`, method: "POST" }],
+        users: usersWithLinks,
+      });
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }

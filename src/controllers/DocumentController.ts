@@ -9,22 +9,13 @@ class DocumentController {
       const documentsWithLinks = documents.map((document) => {
         return {
           ...document._doc,
-          _links: [
-            { rel: "self", href: `/documents/${document._id}` },
-            {
-              rel: "update",
-              href: `/documents/${document._id}`,
-              method: "PUT",
-            },
-            {
-              rel: "delete",
-              href: `/documents/${document._id}`,
-              method: "DELETE",
-            },
-          ],
+          _links: [{ rel: "self", href: `/documents/${document._id}` }],
         };
       });
-      res.json(documentsWithLinks);
+      res.json({
+        _links: [{ rel: "create", href: `/documents`, method: "POST" }],
+        documents: documentsWithLinks,
+      });
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }

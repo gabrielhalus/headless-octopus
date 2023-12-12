@@ -9,19 +9,13 @@ class ProjectController {
       const projectsWithLinks = projects.map((project) => {
         return {
           ...project._doc,
-          _links: [
-            { rel: "self", href: `/projects/${project._id}` },
-            { rel: "update", href: `/projects/${project._id}`, method: "PUT" },
-            {
-              rel: "delete",
-              href: `/projects/${project._id}`,
-              method: "DELETE",
-            },
-            { rel: "schemas", href: `/projects/${project._id}/schemas` },
-          ],
+          _links: [{ rel: "self", href: `/projects/${project._id}` }],
         };
       });
-      res.json(projectsWithLinks);
+      res.json({
+        _links: [{ rel: "create", href: `/projects`, method: "POST" }],
+        projects: projectsWithLinks,
+      });
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }
