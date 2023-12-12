@@ -9,7 +9,7 @@ class DocumentController {
       const documentsWithLinks = documents.map((document) => {
         return {
           ...document._doc,
-          links: [
+          _links: [
             { rel: "self", href: `/documents/${document._id}` },
             {
               rel: "update",
@@ -41,7 +41,7 @@ class DocumentController {
           .json({ error: `Document with ID ${documentId} not found` });
       const documentWithLinks = {
         ...document._doc,
-        links: [
+        _links: [
           { rel: "self", href: `/documents/${document._id}` },
           { rel: "update", href: `/documents/${document._id}`, method: "PUT" },
           {
@@ -65,7 +65,7 @@ class DocumentController {
       const documentsWithLinks = documents.map((document) => {
         return {
           ...document._doc,
-          links: [
+          _links: [
             { rel: "self", href: `/documents/${document._id}` },
             {
               rel: "update",
@@ -93,7 +93,7 @@ class DocumentController {
       const newDocument = await documentService.createDocument(documentData);
       const newDocumentWithLinks = {
         ...newDocument._doc,
-        links: [
+        _links: [
           { rel: "self", href: `/documents/${newDocument._id}` },
           {
             rel: "update",
@@ -129,7 +129,7 @@ class DocumentController {
           .json({ error: `Document with ID ${documentId} not found` });
       const updatedDocumentWithLinks = {
         ...updatedDocument._doc,
-        links: [
+        _links: [
           { rel: "self", href: `/documents/${updatedDocument._id}` },
           {
             rel: "update",
@@ -161,7 +161,7 @@ class DocumentController {
           .json({ error: `Document with ID ${documentId} not found` });
       res.json({
         message: "Successfully deleted",
-        links: [{ rel: "create", href: `/documents`, method: "POST" }],
+        _links: [{ rel: "create", href: `/documents`, method: "POST" }],
       });
     } catch (error: any) {
       res.status(500).json({ error: error.message });

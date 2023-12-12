@@ -9,7 +9,7 @@ class SchemaController {
       const schemasWithLinks = schemas.map((schema) => {
         return {
           ...schema._doc,
-          links: [
+          _links: [
             { rel: "self", href: `/schemas/${schema._id}` },
             { rel: "update", href: `/schemas/${schema._id}`, method: "PUT" },
             { rel: "delete", href: `/schemas/${schema._id}`, method: "DELETE" },
@@ -35,7 +35,7 @@ class SchemaController {
           .json({ error: `Schema with ID ${schemaId} not found` });
       const schemaWithLinks = {
         ...schema._doc,
-        links: [
+        _links: [
           { rel: "self", href: `/schemas/${schema._id}` },
           { rel: "update", href: `/schemas/${schema._id}`, method: "PUT" },
           { rel: "delete", href: `/schemas/${schema._id}`, method: "DELETE" },
@@ -56,7 +56,7 @@ class SchemaController {
       const schemasWithLinks = schemas.map((schema) => {
         return {
           ...schema._doc,
-          links: [
+          _links: [
             { rel: "self", href: `/schemas/${schema._id}` },
             { rel: "update", href: `/schemas/${schema._id}`, method: "PUT" },
             { rel: "delete", href: `/schemas/${schema._id}`, method: "DELETE" },
@@ -77,7 +77,7 @@ class SchemaController {
       const newSchema = await schemaService.createSchema(schemaData);
       const newSchemaWithLinks = {
         ...newSchema._doc,
-        links: [
+        _links: [
           { rel: "self", href: `/schemas/${newSchema._id}` },
           { rel: "update", href: `/schemas/${newSchema._id}`, method: "PUT" },
           {
@@ -109,7 +109,7 @@ class SchemaController {
           .json({ error: `Schema with ID ${schemaId} not found` });
       const updatedSchemaWithLinks = {
         ...updatedSchema._doc,
-        links: [
+        _links: [
           { rel: "self", href: `/schemas/${updatedSchema._id}` },
           {
             rel: "update",
@@ -141,7 +141,7 @@ class SchemaController {
           .json({ error: `Schema with ID ${schemaId} not found` });
       res.json({
         message: "Successfully deleted",
-        links: [{ rel: "create", href: `/schemas`, method: "POST" }],
+        _links: [{ rel: "create", href: `/schemas`, method: "POST" }],
       });
     } catch (error: any) {
       res.status(500).json({ error: error.message });

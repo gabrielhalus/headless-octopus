@@ -9,7 +9,7 @@ class UserController {
       const usersWithLinks = users.map((user) => {
         return {
           ...user._doc,
-          links: [
+          _links: [
             { rel: "self", href: `/users/${user._id}` },
             { rel: "update", href: `/users/${user._id}`, method: "PUT" },
             { rel: "delete", href: `/users/${user._id}`, method: "DELETE" },
@@ -35,7 +35,7 @@ class UserController {
           .json({ error: `User with ID ${userId} not found` });
       const userWithLinks = {
         ...user._doc,
-        links: [
+        _links: [
           { rel: "self", href: `/users/${user._id}` },
           { rel: "update", href: `/users/${user._id}`, method: "PUT" },
           { rel: "delete", href: `/users/${user._id}`, method: "DELETE" },
@@ -55,7 +55,7 @@ class UserController {
       const newUser = await userService.createUser(userData);
       const newUserWithLinks = {
         ...newUser._doc,
-        links: [
+        _links: [
           { rel: "self", href: `/users/${newUser._id}` },
           { rel: "update", href: `/users/${newUser._id}`, method: "PUT" },
           { rel: "delete", href: `/users/${newUser._id}`, method: "DELETE" },
@@ -80,7 +80,7 @@ class UserController {
           .json({ error: `User with ID ${userId} not found` });
       const updatedUserWithLinks = {
         ...updatedUser._doc,
-        links: [
+        _links: [
           { rel: "self", href: `/users/${updatedUser._id}` },
           { rel: "update", href: `/users/${updatedUser._id}`, method: "PUT" },
           {
@@ -108,7 +108,7 @@ class UserController {
           .json({ error: `User with ID ${userId} not found` });
       res.json({
         message: "Successfully deleted",
-        links: [{ rel: "create", href: `/users`, method: "POST" }],
+        _links: [{ rel: "create", href: `/users`, method: "POST" }],
       });
     } catch (error: any) {
       res.status(500).json({ error: error.message });

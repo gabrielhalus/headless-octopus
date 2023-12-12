@@ -9,7 +9,7 @@ class ProjectController {
       const projectsWithLinks = projects.map((project) => {
         return {
           ...project._doc,
-          links: [
+          _links: [
             { rel: "self", href: `/projects/${project._id}` },
             { rel: "update", href: `/projects/${project._id}`, method: "PUT" },
             {
@@ -39,7 +39,7 @@ class ProjectController {
           .json({ error: `Project with ID ${projectId} not found` });
       const projectWithLinks = {
         ...project._doc,
-        links: [
+        _links: [
           { rel: "self", href: `/projects/${project._id}` },
           { rel: "update", href: `/projects/${project._id}`, method: "PUT" },
           { rel: "delete", href: `/projects/${project._id}`, method: "DELETE" },
@@ -60,7 +60,7 @@ class ProjectController {
       const projectsWithLinks = projects.map((project) => {
         return {
           ...project._doc,
-          links: [
+          _links: [
             { rel: "self", href: `/projects/${project._id}` },
             { rel: "update", href: `/projects/${project._id}`, method: "PUT" },
             {
@@ -85,7 +85,7 @@ class ProjectController {
       const newProject = await projectService.createProject(projectData);
       const newProjectWithLinks = {
         ...newProject._doc,
-        links: [
+        _links: [
           { rel: "self", href: `/projects/${newProject._id}` },
           { rel: "update", href: `/projects/${newProject._id}`, method: "PUT" },
           {
@@ -117,7 +117,7 @@ class ProjectController {
           .json({ error: `Project with ID ${projectId} not found` });
       const updatedProjectWithLinks = {
         ...updatedProject._doc,
-        links: [
+        _links: [
           { rel: "self", href: `/projects/${updatedProject._id}` },
           {
             rel: "update",
@@ -149,7 +149,7 @@ class ProjectController {
           .json({ error: `Project with ID ${projectId} not found` });
       res.json({
         message: "Successfully deleted",
-        links: [{ rel: "create", href: `/projects`, method: "POST" }],
+        _links: [{ rel: "create", href: `/projects`, method: "POST" }],
       });
     } catch (error: any) {
       res.status(500).json({ error: error.message });
