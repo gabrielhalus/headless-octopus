@@ -1,0 +1,551 @@
+openapi: 3.0.0
+info:
+  title: API Headless CMS
+  description: Documentation de l'API pour un système de gestion de contenu (CMS) headless
+  version: 1.0.0
+
+tags:
+  - name: Root
+    description: Opérations liées à la racine de l'application
+  - name: Users
+    description: Opérations liées aux utilisateurs
+  - name: Projects
+    description: Opérations liées aux projets
+  - name: Schemas
+    description: Opérations liées aux schémas
+  - name: Documents
+    description: Opérations liées aux documents
+
+paths:
+  /:
+    get:
+      tags:
+        - Root
+      summary: Récupérer les ressources disponibles
+      responses:
+        200:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Links"
+
+  /users:
+    get:
+      tags:
+        - Users
+      summary: Récupérer la liste des utilisateurs
+      responses:
+        200:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _links:
+                    $ref: "#/components/schemas/Links"
+                  users:
+                    $ref: "#/components/schemas/UserWithLinks"
+    post:
+      tags:
+        - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      summary: Créer un nouvel utilisateur
+      responses:
+        201:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserWithLinks"
+
+  /users/:id:
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        description: ID de l'utilisateur
+        schema:
+          type: string
+    get:
+      tags:
+        - Users
+      summary: Récupérer un utilisateur par ID
+      responses:
+        200:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserWithLinks"
+    put:
+      tags:
+        - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      summary: Mettre à jour un utilisateur par ID
+      responses:
+        200:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserWithLinks"
+    delete:
+      tags:
+        - Users
+      summary: Supprimer un utilisateur par ID
+      responses:
+        "204":
+          description: Succès
+
+  /users/:id/projects:
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        description: ID de l'utilisateur
+        schema:
+          type: string
+    get:
+      tags:
+        - Projects
+      summary: Récupérer la liste des projets d'un utilisateur
+      responses:
+        200:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _links:
+                    $ref: "#/components/schemas/Links"
+                  projects:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ProjectWithLinks"
+
+  /projects:
+    get:
+      tags:
+        - Projects
+      summary: Récupérer la liste des projets
+      responses:
+        200:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _links:
+                    $ref: "#/components/schemas/Links"
+                  projects:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ProjectWithLinks"
+    post:
+      tags:
+        - Projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Project"
+      summary: Créer un nouveau projet
+      responses:
+        201:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectWithLinks"
+
+  /projects/:id:
+    parameters:
+      - name: projectId
+        in: path
+        required: true
+        description: ID du projet
+        schema:
+          type: string
+    get:
+      tags:
+        - Projects
+      summary: Récupérer un projet par ID
+      responses:
+        200:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectWithLinks"
+    put:
+      tags:
+        - Projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Project"
+      summary: Mettre à jour un projet par ID
+      responses:
+        200:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectWithLinks"
+    delete:
+      tags:
+        - Projects
+      summary: Supprimer un projet par ID
+      responses:
+        "204":
+          description: Succès
+
+  /projects/:id/schemas:
+    parameters:
+      - name: projectId
+        in: path
+        required: true
+        description: ID du projet
+        schema:
+          type: string
+    get:
+      tags:
+        - Schemas
+      summary: Récupérer la liste des schémas d'un projet
+      responses:
+        200:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _links:
+                    $ref: "#/components/schemas/Links"
+                  schemas:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SchemaWithLinks"
+
+  /schemas:
+    get:
+      tags:
+        - Schemas
+      summary: Récupérer la liste des schémas
+      responses:
+        200:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _links:
+                    $ref: "#/components/schemas/Links"
+                  schemas:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SchemaWithLinks"
+    post:
+      tags:
+        - Schemas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Schema"
+
+      summary: Créer un nouveau schéma
+      responses:
+        201:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SchemaWithLinks"
+
+  /schemas/:id:
+    parameters:
+      - name: schemaId
+        in: path
+        required: true
+        description: ID du schema
+        schema:
+          type: string
+    get:
+      tags:
+        - Schemas
+      summary: Récupérer un schema par ID
+      responses:
+        200:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SchemaWithLinks"
+    put:
+      tags:
+        - Schemas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Schema"
+      summary: Mettre à jour un schéma par ID
+      responses:
+        200:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SchemaWithLinks"
+    delete:
+      tags:
+        - Schemas
+      summary: Supprimer un schéma par ID
+      responses:
+        "204":
+          description: Succès
+
+  /schemas/:id/documents:
+    parameters:
+      - name: schemaId
+        in: path
+        required: true
+        description: ID du schema
+        schema:
+          type: string
+    get:
+      tags:
+        - Documents
+      summary: Récupérer la liste des documents d'un schéma
+      responses:
+        200:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _links:
+                    $ref: "#/components/schemas/Links"
+                  documents:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/DocumentWithLinks"
+
+  /documents:
+    get:
+      tags:
+        - Documents
+      summary: Récupérer la liste des documents
+      responses:
+        200:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _links:
+                    $ref: "#/components/schemas/Links"
+                  documents:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/DocumentWithLinks"
+    post:
+      tags:
+        - Documents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Document"
+
+      summary: Créer un nouveau document
+      responses:
+        201:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DocumentWithLinks"
+
+  /documents/:id:
+    parameters:
+      - name: documentId
+        in: path
+        required: true
+        description: ID du document
+        schema:
+          type: string
+    get:
+      tags:
+        - Documents
+      summary: Récupérer un document par ID
+      responses:
+        200:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DocumentWithLinks"
+    put:
+      tags:
+        - Documents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Document"
+      summary: Mettre à jour un document par ID
+      responses:
+        200:
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DocumentWithLinks"
+    delete:
+      tags:
+        - Documents
+      summary: Supprimer un document par ID
+      responses:
+        "204":
+          description: Succès
+
+components:
+  schemas:
+    UserWithLinks:
+      description: Schéma représentant un utilisateur avec des liens
+      allOf:
+        - $ref: "#/components/schemas/User"
+        - type: object
+          properties:
+            _id:
+              type: string
+            _links:
+              $ref: "#/components/schemas/Links"
+
+    User:
+      description: Schéma représentant un utilisateur
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+
+    ProjectWithLinks:
+      description: Schéma représentant un projet avec des liens
+      allOf:
+        - $ref: "#/components/schemas/Project"
+        - type: object
+          properties:
+            _id:
+              type: string
+            _links:
+              $ref: "#/components/schemas/Links"
+
+    Project:
+      description: Schéma représentant un projet
+      type: object
+      properties:
+        name:
+          type: string
+        title:
+          type: string
+        user:
+          type: string
+        website:
+          type: string
+
+    SchemaWithLinks:
+      description: Schéma représentant un schéma avec des liens
+      allOf:
+        - $ref: "#/components/schemas/Schema"
+        - type: object
+          properties:
+            _id:
+              type: string
+            _links:
+              $ref: "#/components/schemas/Links"
+
+    Schema:
+      description: Schéma représentant un schéma
+      type: object
+      properties:
+        name:
+          type: string
+        title:
+          type: string
+        project:
+          type: string
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              title:
+                type: string
+              type:
+                type: string
+              options:
+                type: object
+
+    DocumentWithLinks:
+      description: Schéma représentant un document avec des liens
+      allOf:
+        - $ref: "#/components/schemas/Document"
+        - type: object
+          properties:
+            _id:
+              type: string
+            _links:
+              $ref: "#/components/schemas/Links"
+
+    Document:
+      description: Schéma représentant un document
+      type: object
+      properties:
+        name:
+          type: string
+        schema:
+          type: string
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: string
+
+    Links:
+      description: Schéma représentant des liens
+      type: array
+      items:
+        type: object
+        properties:
+          rel:
+            type: string
+          href:
+            type: string
+          method:
+            type: string
