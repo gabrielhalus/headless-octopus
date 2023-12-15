@@ -46,7 +46,9 @@ paths:
                   _links:
                     $ref: "#/components/schemas/Links"
                   users:
-                    $ref: "#/components/schemas/UserWithLinks"
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/UserWithLinks"
     post:
       tags:
         - Users
